@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class StarBounceUI : MonoBehaviour
 {
-    public float dropDistance = 80f;
-    public float dropDuration = 0.25f;
-    public float bounceScale = 1.2f;
-    public float bounceDuration = 0.15f;
+    [Header("Animation")]
+    public float moveDistance = 120f;
+    public float moveDuration = 0.25f;
+    public float bounceScale = 1.15f;
+    public float bounceDuration = 0.12f;
+
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip starSound;
 
     private RectTransform rectTransform;
     private Vector2 finalPosition;
@@ -21,7 +26,7 @@ public class StarBounceUI : MonoBehaviour
 
     public void ResetStar()
     {
-        rectTransform.anchoredPosition = finalPosition + new Vector2(0f, dropDistance);
+        rectTransform.anchoredPosition = finalPosition + new Vector2(-moveDistance, 0f);
         rectTransform.localScale = Vector3.zero;
         gameObject.SetActive(false);
     }
@@ -30,15 +35,20 @@ public class StarBounceUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        Vector2 startPos = finalPosition + new Vector2(0f, dropDistance);
+        if (audioSource != null && starSound != null)
+        {
+            audioSource.PlayOneShot(starSound);
+        }
+
+        Vector2 startPos = finalPosition + new Vector2(-moveDistance, 0f);
         Vector2 endPos = finalPosition;
 
         float time = 0f;
 
-        while (time < dropDuration)
+        while (time < moveDuration)
         {
             time += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(time / dropDuration);
+            float t = Mathf.Clamp01(time / moveDuration);
 
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
             rectTransform.localScale = Vector3.Lerp(Vector3.zero, finalScale, t);
