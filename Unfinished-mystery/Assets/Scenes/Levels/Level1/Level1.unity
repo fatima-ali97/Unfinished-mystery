@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.22444484, g: 0.13866144, b: 0.7169812, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '10
+  m_text: '0
 
 '
   m_isRightToLeft: 0
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.08770915, g: 0.09307622, b: 0.6886792, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1767046, g: 0.15663938, b: 0.6037736, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 212666845}
   - component: {fileID: 212666847}
   - component: {fileID: 212666846}
+  - component: {fileID: 212666848}
   m_Layer: 5
   m_Name: InventorySlot_03
   m_TagString: Untagged
@@ -666,6 +667,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212666844}
   m_CullTransparentMesh: 1
+--- !u!114 &212666848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212666844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2043290272}
+  selectedFrame: {fileID: 643194471}
 --- !u!1 &237127192
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +830,7 @@ GameObject:
   - component: {fileID: 249996131}
   - component: {fileID: 249996133}
   - component: {fileID: 249996132}
+  - component: {fileID: 249996134}
   m_Layer: 5
   m_Name: InventorySlot_01
   m_TagString: Untagged
@@ -882,6 +898,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249996130}
   m_CullTransparentMesh: 1
+--- !u!114 &249996134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249996130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1545754807}
+  selectedFrame: {fileID: 1379934160}
 --- !u!1 &261605849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,7 +1173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24724594, g: 0.0693307, b: 0.7735849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1615,7 +1645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.092428684, g: 0.06652725, b: 0.6132076, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1651,6 +1681,7 @@ GameObject:
   - component: {fileID: 632949085}
   - component: {fileID: 632949087}
   - component: {fileID: 632949086}
+  - component: {fileID: 632949088}
   m_Layer: 5
   m_Name: InventorySlot_08
   m_TagString: Untagged
@@ -1718,6 +1749,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 632949084}
   m_CullTransparentMesh: 1
+--- !u!114 &632949088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632949084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1271860828}
+  selectedFrame: {fileID: 487495748}
 --- !u!1 &643194471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,7 +1813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.13056128, g: 0.12971698, b: 0.5188679, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1993,7 +2038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19121765, g: 0.13616946, b: 0.6415094, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2316,7 +2361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105765507}
   m_Layer: 0
-  m_Name: 'InventoryManager '
+  m_Name: LoopResetManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2562,6 +2607,7 @@ GameObject:
   - component: {fileID: 1183440323}
   - component: {fileID: 1183440325}
   - component: {fileID: 1183440324}
+  - component: {fileID: 1183440326}
   m_Layer: 5
   m_Name: InventorySlot_07
   m_TagString: Untagged
@@ -2629,6 +2675,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183440322}
   m_CullTransparentMesh: 1
+--- !u!114 &1183440326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183440322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 864866824}
+  selectedFrame: {fileID: 172418}
 --- !u!1 &1214467765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,6 +2700,7 @@ GameObject:
   - component: {fileID: 1214467766}
   - component: {fileID: 1214467768}
   - component: {fileID: 1214467767}
+  - component: {fileID: 1214467769}
   m_Layer: 5
   m_Name: InventorySlot_02
   m_TagString: Untagged
@@ -2707,6 +2768,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214467765}
   m_CullTransparentMesh: 1
+--- !u!114 &1214467769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214467765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 744767758}
+  selectedFrame: {fileID: 76697042}
 --- !u!1 &1238538528
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,7 +3120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.032529376, g: 0.10348731, b: 0.16037738, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3081,6 +3156,7 @@ GameObject:
   - component: {fileID: 1399119566}
   - component: {fileID: 1399119568}
   - component: {fileID: 1399119567}
+  - component: {fileID: 1399119569}
   m_Layer: 5
   m_Name: InventorySlot_04
   m_TagString: Untagged
@@ -3148,6 +3224,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399119565}
   m_CullTransparentMesh: 1
+--- !u!114 &1399119569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399119565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1829658}
+  selectedFrame: {fileID: 829629934}
 --- !u!1 &1423373526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1440851018}
+  - component: {fileID: 1440851019}
   m_Layer: 0
   m_Name: 'InventoryManager '
   m_TagString: Untagged
@@ -3258,6 +3349,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2046521248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1440851019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440851017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1978c7ff6b448109179053bf6329a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSlots: 10
+  slotUIs: []
 --- !u!1 &1465860119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,6 +3374,7 @@ GameObject:
   - component: {fileID: 1465860120}
   - component: {fileID: 1465860122}
   - component: {fileID: 1465860121}
+  - component: {fileID: 1465860123}
   m_Layer: 5
   m_Name: InventorySlot_10
   m_TagString: Untagged
@@ -3336,6 +3442,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465860119}
   m_CullTransparentMesh: 1
+--- !u!114 &1465860123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465860119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 675302250}
+  selectedFrame: {fileID: 1781013298}
 --- !u!1 &1501973399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,6 +3467,7 @@ GameObject:
   - component: {fileID: 1501973400}
   - component: {fileID: 1501973402}
   - component: {fileID: 1501973401}
+  - component: {fileID: 1501973403}
   m_Layer: 5
   m_Name: InventorySlot_06
   m_TagString: Untagged
@@ -3414,6 +3535,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501973399}
   m_CullTransparentMesh: 1
+--- !u!114 &1501973403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501973399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1374288807}
+  selectedFrame: {fileID: 69207493}
 --- !u!1 &1545754805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,14 +3599,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5571598, g: 0.04071733, b: 0.5754717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3674,6 +3809,7 @@ GameObject:
   - component: {fileID: 1688658256}
   - component: {fileID: 1688658258}
   - component: {fileID: 1688658257}
+  - component: {fileID: 1688658259}
   m_Layer: 5
   m_Name: InventorySlot_05
   m_TagString: Untagged
@@ -3741,6 +3877,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688658255}
   m_CullTransparentMesh: 1
+--- !u!114 &1688658259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688658255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 261605851}
+  selectedFrame: {fileID: 289225864}
 --- !u!1 &1765063861
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,7 +4217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.06354574, g: 0.20587242, b: 0.6415094, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4142,7 +4292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.0473923, g: 0.08830174, b: 0.6698113, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4178,6 +4328,7 @@ GameObject:
   - component: {fileID: 1815102827}
   - component: {fileID: 1815102829}
   - component: {fileID: 1815102828}
+  - component: {fileID: 1815102830}
   m_Layer: 5
   m_Name: InventorySlot_09
   m_TagString: Untagged
@@ -4245,6 +4396,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815102826}
   m_CullTransparentMesh: 1
+--- !u!114 &1815102830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815102826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5da94768c1414bbc9611066beecc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1103293119}
+  selectedFrame: {fileID: 1802758064}
 --- !u!1 &1841378716
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -31,16 +32,27 @@ public class InventoryManager : MonoBehaviour
 
     private void HandleSlotInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SelectSlot(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SelectSlot(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SelectSlot(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SelectSlot(3);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) SelectSlot(4);
-        if (Input.GetKeyDown(KeyCode.Alpha6)) SelectSlot(5);
-        if (Input.GetKeyDown(KeyCode.Alpha7)) SelectSlot(6);
-        if (Input.GetKeyDown(KeyCode.Alpha8)) SelectSlot(7);
-        if (Input.GetKeyDown(KeyCode.Alpha9)) SelectSlot(8);
-        if (Input.GetKeyDown(KeyCode.Alpha0)) SelectSlot(9);
+        if (IsKeyPressed(Key.Digit1)) SelectSlot(0);
+        if (IsKeyPressed(Key.Digit2)) SelectSlot(1);
+        if (IsKeyPressed(Key.Digit3)) SelectSlot(2);
+        if (IsKeyPressed(Key.Digit4)) SelectSlot(3);
+        if (IsKeyPressed(Key.Digit5)) SelectSlot(4);
+        if (IsKeyPressed(Key.Digit6)) SelectSlot(5);
+        if (IsKeyPressed(Key.Digit7)) SelectSlot(6);
+        if (IsKeyPressed(Key.Digit8)) SelectSlot(7);
+        if (IsKeyPressed(Key.Digit9)) SelectSlot(8);
+        if (IsKeyPressed(Key.Digit0)) SelectSlot(9);
+    }
+
+    private bool IsKeyPressed(Key key)
+    {
+        // New Input System
+        if (Keyboard.current != null)
+        {
+            return Keyboard.current[key].wasPressedThisFrame;
+        }
+
+        return false;
     }
 
     public bool AddItem(ItemData item)
