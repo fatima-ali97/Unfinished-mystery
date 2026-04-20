@@ -11,6 +11,10 @@ public class LoadingScreenController : MonoBehaviour
     public Sprite closedDoorSprite;
     public Sprite openDoorSprite;
 
+    [Header("Audio")]
+    public AudioSource backgroundMusicAudio;
+    public AudioSource doorOpenAudio;
+
     [Header("UI")]
     public TextMeshProUGUI loadingText;
     public RectTransform barFill;
@@ -45,6 +49,12 @@ public class LoadingScreenController : MonoBehaviour
         maxBarWidth = barOutline.rect.width;
 
         SetBarProgress(0f);
+
+        // نشغل موسيقى الخلفية من البداية إذا موجودة
+        if (backgroundMusicAudio != null && !backgroundMusicAudio.isPlaying)
+        {
+            backgroundMusicAudio.Play();
+        }
 
         StartCoroutine(LoadSceneRoutine());
     }
@@ -83,6 +93,12 @@ public class LoadingScreenController : MonoBehaviour
 
         loadingText.text = "LOADING... 100%";
         SetBarProgress(1f);
+
+        // صوت الباب يشتغل فقط وقت الفتح
+        if (doorOpenAudio != null)
+        {
+            doorOpenAudio.Play();
+        }
 
         doorImage.sprite = openDoorSprite;
 
