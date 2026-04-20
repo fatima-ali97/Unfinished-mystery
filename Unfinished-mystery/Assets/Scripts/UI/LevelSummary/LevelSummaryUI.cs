@@ -28,14 +28,18 @@ public class LevelSummaryUI : MonoBehaviour
 
     private void Start()
     {
+        Sprite portraitToUse = LevelResultData.portrait != null
+            ? LevelResultData.portrait
+            : defaultPortrait;
+
         ShowSummary(
-            "LEVEL COMPLETE",
-            "Level 1",
-            "Kyryll Flins",
-            "Mathematics Professor",
-            3,
-            "The truth has been uncovered.",
-            defaultPortrait
+            LevelResultData.title,
+            LevelResultData.levelName,
+            LevelResultData.characterName,
+            LevelResultData.role,
+            LevelResultData.loopsUsed,
+            LevelResultData.resultMessage,
+            portraitToUse
         );
     }
 
@@ -48,16 +52,28 @@ public class LevelSummaryUI : MonoBehaviour
         string resultMessage,
         Sprite portrait)
     {
-        summaryPanel.SetActive(true);
+        if (summaryPanel != null)
+            summaryPanel.SetActive(true);
 
-        titleText.text = title;
-        levelText.text = level;
-        identityText.text = "IDENTITY REVEALED: " + characterName;
-        roleText.text = role;
-        loopsText.text = "Loops Used: " + loopsUsed + " / 10";
-        resultText.text = resultMessage;
+        if (titleText != null)
+            titleText.text = title;
 
-        if (portrait != null)
+        if (levelText != null)
+            levelText.text = level;
+
+        if (identityText != null)
+            identityText.text = "IDENTITY REVEALED: " + characterName;
+
+        if (roleText != null)
+            roleText.text = role;
+
+        if (loopsText != null)
+            loopsText.text = "Loops Used: " + loopsUsed + " / 10";
+
+        if (resultText != null)
+            resultText.text = resultMessage;
+
+        if (portraitImage != null && portrait != null)
             portraitImage.sprite = portrait;
 
         ResetAllStars();

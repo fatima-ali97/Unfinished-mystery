@@ -3,15 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelSummaryButtons : MonoBehaviour
 {
-    public string nextSceneName = "";
-    public string replaySceneName = "";
-
     public void ContinueGame()
     {
-        if (!string.IsNullOrEmpty(nextSceneName))
+        Time.timeScale = 1f;
+
+        if (!string.IsNullOrEmpty(LevelResultData.nextSceneName))
         {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene(LevelResultData.nextSceneName);
         }
         else
         {
@@ -21,10 +19,11 @@ public class LevelSummaryButtons : MonoBehaviour
 
     public void ReplayLevel()
     {
-        if (!string.IsNullOrEmpty(replaySceneName))
+        Time.timeScale = 1f;
+
+        if (!string.IsNullOrEmpty(LevelResultData.replaySceneName))
         {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(replaySceneName);
+            SceneManager.LoadScene(LevelResultData.replaySceneName);
         }
         else
         {
