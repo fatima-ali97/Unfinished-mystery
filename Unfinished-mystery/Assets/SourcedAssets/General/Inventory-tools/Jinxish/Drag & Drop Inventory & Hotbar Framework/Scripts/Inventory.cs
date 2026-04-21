@@ -11,6 +11,7 @@ namespace InventoryFramework
         private void Awake()
         {
             slots = new List<InventorySlot>(new InventorySlot[size]);
+
             for (int i = 0; i < size; i++)
             {
                 slots[i] = new InventorySlot();
@@ -19,7 +20,6 @@ namespace InventoryFramework
 
         public bool AddItem(Item newItem, int amount = 1)
         {
-            // Stacking if possible
             foreach (var slot in slots)
             {
                 if (!slot.IsEmpty && slot.item == newItem && slot.count < newItem.maxStack)
@@ -33,19 +33,17 @@ namespace InventoryFramework
                 }
             }
 
-            // Add to empty slot
             foreach (var slot in slots)
             {
                 if (slot.IsEmpty)
                 {
                     slot.item = newItem;
                     slot.count = amount;
-
                     return true;
                 }
             }
 
-            return false; // Inventory is full
+            return false;
         }
 
         public void MoveOrSwap(int from, int to)
@@ -55,7 +53,6 @@ namespace InventoryFramework
             var slotFrom = slots[from];
             var slotTo = slots[to];
 
-            // Move to Empty Slot
             if (slotTo.IsEmpty)
             {
                 slotTo.item = slotFrom.item;
@@ -66,7 +63,6 @@ namespace InventoryFramework
             }
             else
             {
-                // Swap Items
                 var tmpItem = slotFrom.item;
                 var tmpCount = slotFrom.count;
 
@@ -78,7 +74,4 @@ namespace InventoryFramework
             }
         }
     }
-
-
-
 }

@@ -12,6 +12,8 @@ namespace InventoryFramework
         public ItemTooltip tooltip;
         public Transform toolsParent;
 
+        public Item drawerKeyItem;
+
         private List<InventorySlotUI> slotUIs = new();
         private int selectedIndex = 0;
 
@@ -22,7 +24,6 @@ namespace InventoryFramework
         {
             slotUIs = new List<InventorySlotUI>();
 
-            // ياخذ السلوتات الموجودة يدويًا داخل slotParent
             foreach (Transform child in slotParent)
             {
                 InventorySlotUI ui = child.GetComponent<InventorySlotUI>();
@@ -37,7 +38,14 @@ namespace InventoryFramework
 
             if (slotUIs.Count < hotbar.size)
             {
-                Debug.LogWarning($"HotbarUI: عدد السلوتات الموجودة داخل slotParent هو {slotUIs.Count}, لكن hotbar.size = {hotbar.size}.");
+                Debug.LogWarning($"HotbarUI: slot count in slotParent = {slotUIs.Count}, but hotbar.size = {hotbar.size}.");
+            }
+
+            // يحط المفتاح في أول خانة من الهوتبار
+            if (drawerKeyItem != null && hotbar != null && hotbar.slots != null && hotbar.slots.Count > 0)
+            {
+                hotbar.slots[0].item = drawerKeyItem;
+                hotbar.slots[0].count = 1;
             }
 
             RefreshUI();
@@ -77,15 +85,14 @@ namespace InventoryFramework
             {
                 slotUIs[i].SetSlot(hotbar.slots[i]);
 
-                Transform bgChild = slotUIs[i].transform.GetChild(0);
-                Image bg = bgChild.GetComponent<Image>();
-
+                Image bg = slotUIs[i].GetBackgroundImage();
                 if (bg != null)
                 {
                     bg.color = (i == selectedIndex) ? Color.yellow : Color.white;
                 }
             }
 
+            if (toolsParent == null) return;
             if (selectedIndex >= count) return;
 
             InventorySlot slot = slotUIs[selectedIndex].GetSlot();

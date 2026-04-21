@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering.RenderGraphModule;
 
 namespace InventoryFramework
 {
@@ -14,6 +13,7 @@ namespace InventoryFramework
 
     public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        public Image backgroundImage;
         public Image icon;
         public TextMeshProUGUI countText;
 
@@ -28,7 +28,6 @@ namespace InventoryFramework
 
         GameObject dragIcon;
         RectTransform dragRT;
-        int fromSlotIndex;
 
         public ItemTooltip tooltip;
 
@@ -65,34 +64,48 @@ namespace InventoryFramework
             return owner == SlotOwner.Inventory ? inventory.slots[index] : hotbar.slots[index];
         }
 
-        void RefreshParentUI()
+        public Image GetBackgroundImage()
         {
-            if (inventoryUI != null) inventoryUI.RefreshUI();
-            if (hotbarUI != null) hotbarUI.RefreshUI();
+            return backgroundImage;
         }
 
         public void SetSlot(InventorySlot slot)
         {
-            if (slot == null || slot.IsEmpty)
+            if (slot == null || slot.IsEmpty || slot.item == null || slot.item.icon == null)
             {
-                icon.enabled = false;
-                countText.text = "";
+                if (icon != null)
+                {
+                    icon.sprite = null;
+                    icon.enabled = false;
+                    icon.color = new Color(1f, 1f, 1f, 0f);
+                }
+
+                if (countText != null)
+                {
+                    countText.text = "";
+                }
             }
             else
             {
-                icon.enabled = true;
-                icon.sprite = slot.item.icon;
-                countText.text = slot.count > 1 ? slot.count.ToString() : "";
+                if (icon != null)
+                {
+                    icon.enabled = true;
+                    icon.sprite = slot.item.icon;
+                    icon.color = Color.white;
+                }
+
+                if (countText != null)
+                {
+                    countText.text = slot.count > 1 ? slot.count.ToString() : "";
+                }
             }
         }
 
-        // DRAG HANDLING
         public void OnBeginDrag(PointerEventData eventData)
         {
             var s = GetSlot();
-            if (s.IsEmpty) return;
+            if (s == null || s.IsEmpty) return;
 
-            // How Many To Drag
             int amount;
 
             if (eventData.button == PointerEventData.InputButton.Right)
@@ -120,7 +133,6 @@ namespace InventoryFramework
                 s.count = 0;
             }
 
-
             Transform parentLayer = owner == SlotOwner.Inventory ? inventoryUI.dragLayer : hotbarUI.dragLayer;
 
             dragIcon = new GameObject("DragIcon");
@@ -133,14 +145,12 @@ namespace InventoryFramework
             dragRT.sizeDelta = icon.rectTransform.sizeDelta;
 
             RefreshAllUIs();
-
             UpdateDragPosition(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (dragIcon == null) return;
-
             UpdateDragPosition(eventData);
         }
 
@@ -177,15 +187,18 @@ namespace InventoryFramework
 
             if (DragContext.draggedItem != null && DragContext.draggedCount > 0)
             {
-                var originalSlot = inventory.slots[DragContext.fromSlotIndex];
-                if (originalSlot.IsEmpty)
+                var originalSlot = GetOriginalSlot();
+                if (originalSlot != null)
                 {
-                    originalSlot.item = DragContext.draggedItem;
-                    originalSlot.count = DragContext.draggedCount;
-                }
-                else if (originalSlot.item == DragContext.draggedItem)
-                {
-                    originalSlot.count += DragContext.draggedCount;
+                    if (originalSlot.IsEmpty)
+                    {
+                        originalSlot.item = DragContext.draggedItem;
+                        originalSlot.count = DragContext.draggedCount;
+                    }
+                    else if (originalSlot.item == DragContext.draggedItem)
+                    {
+                        originalSlot.count += DragContext.draggedCount;
+                    }
                 }
 
                 DragContext.draggedItem = null;
@@ -200,15 +213,13 @@ namespace InventoryFramework
             if (DragContext.draggedItem == null || DragContext.draggedCount <= 0) return;
 
             var targetSlot = GetSlot();
+            if (targetSlot == null) return;
 
-
-            // Empty Slot -> Move
             if (targetSlot.IsEmpty)
             {
                 targetSlot.item = DragContext.draggedItem;
                 targetSlot.count = DragContext.draggedCount;
             }
-            // Same Item -> Merge
             else if (targetSlot.item == DragContext.draggedItem)
             {
                 int space = targetSlot.item.maxStack - targetSlot.count;
@@ -221,19 +232,20 @@ namespace InventoryFramework
                     ReturnToOriginalSlot();
                 }
             }
-            // Different Item -> Normal Swap
             else
             {
                 var originalSlot = GetOriginalSlot();
+                if (originalSlot != null)
+                {
+                    var tmpItem = targetSlot.item;
+                    var tmpCount = targetSlot.count;
 
-                var tmpItem = targetSlot.item;
-                var tmpCount = targetSlot.count;
+                    targetSlot.item = DragContext.draggedItem;
+                    targetSlot.count = DragContext.draggedCount;
 
-                targetSlot.item = DragContext.draggedItem;
-                targetSlot.count = DragContext.draggedCount;
-
-                originalSlot.item = tmpItem;
-                originalSlot.count = tmpCount;
+                    originalSlot.item = tmpItem;
+                    originalSlot.count = tmpCount;
+                }
             }
 
             DragContext.draggedItem = null;
@@ -261,6 +273,7 @@ namespace InventoryFramework
         private void ReturnToOriginalSlot()
         {
             var originalSlot = GetOriginalSlot();
+            if (originalSlot == null) return;
 
             if (originalSlot.IsEmpty)
             {
@@ -282,7 +295,7 @@ namespace InventoryFramework
         public void OnPointerEnter(PointerEventData eventData)
         {
             var slot = GetSlot();
-            if (slot != null && !slot.IsEmpty)
+            if (slot != null && !slot.IsEmpty && tooltip != null)
             {
                 tooltip.Show(slot.item, eventData.position);
             }
@@ -290,9 +303,10 @@ namespace InventoryFramework
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            tooltip.Hide();
+            if (tooltip != null)
+            {
+                tooltip.Hide();
+            }
         }
     }
-
 }
-

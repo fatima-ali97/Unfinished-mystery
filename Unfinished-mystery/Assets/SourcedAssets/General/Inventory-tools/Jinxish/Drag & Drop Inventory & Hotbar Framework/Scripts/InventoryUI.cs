@@ -19,23 +19,21 @@ namespace InventoryFramework
         {
             slotUIs = new List<InventorySlotUI>();
 
-            // ناخذ كل الـ slots الموجودة يدويًا داخل slotParent
             foreach (Transform child in slotParent)
             {
-                InventorySlotUI slotUI = child.GetComponent<InventorySlotUI>();
+                InventorySlotUI ui = child.GetComponent<InventorySlotUI>();
 
-                if (slotUI != null)
+                if (ui != null)
                 {
-                    slotUI.tooltip = tooltip;
-                    slotUI.Setup(inventory, hotbar, slotUIs.Count, this);
-                    slotUIs.Add(slotUI);
+                    ui.tooltip = tooltip;
+                    ui.Setup(inventory, hotbar, slotUIs.Count, this);
+                    slotUIs.Add(ui);
                 }
             }
 
-            // تحذير إذا عدد السلوتات اليدوية أقل من حجم الانفنتوري
             if (slotUIs.Count < inventory.size)
             {
-                Debug.LogWarning($"InventoryUI: عدد السلوتات الموجودة داخل slotParent هو {slotUIs.Count}, لكن inventory.size = {inventory.size}.");
+                Debug.LogWarning($"InventoryUI: slot count in slotParent = {slotUIs.Count}, but inventory.size = {inventory.size}.");
             }
 
             RefreshUI();

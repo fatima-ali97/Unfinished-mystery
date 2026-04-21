@@ -11,6 +11,7 @@ namespace InventoryFramework
         void Awake()
         {
             slots = new List<InventorySlot>(new InventorySlot[size]);
+
             for (int i = 0; i < size; i++)
             {
                 slots[i] = new InventorySlot();
@@ -20,7 +21,6 @@ namespace InventoryFramework
         public InventorySlot GetSlot(int index)
         {
             if (index < 0 || index >= size) return null;
-
             return slots[index];
         }
 
@@ -34,6 +34,7 @@ namespace InventoryFramework
                     int add = Mathf.Min(space, amount);
                     slot.count += add;
                     amount -= add;
+
                     if (amount <= 0) return true;
                 }
             }
@@ -51,5 +52,4 @@ namespace InventoryFramework
             return false;
         }
     }
-
 }
