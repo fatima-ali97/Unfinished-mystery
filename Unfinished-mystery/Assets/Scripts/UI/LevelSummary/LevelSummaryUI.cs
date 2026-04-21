@@ -28,6 +28,21 @@ public class LevelSummaryUI : MonoBehaviour
 
     private void Start()
     {
+        if (string.IsNullOrEmpty(LevelResultData.title))
+        {
+            LevelResultData.SetResult(
+                "LEVEL COMPLETE",
+                "Level 1",
+                "Unknown Character",
+                "Unknown Role",
+                5,
+                "No data yet.",
+                defaultPortrait,
+                "",
+                ""
+            );
+        }
+
         Sprite portraitToUse = LevelResultData.portrait != null
             ? LevelResultData.portrait
             : defaultPortrait;
@@ -73,7 +88,7 @@ public class LevelSummaryUI : MonoBehaviour
         if (resultText != null)
             resultText.text = resultMessage;
 
-        if (portraitImage != null && portrait != null)
+        if (portraitImage != null)
             portraitImage.sprite = portrait;
 
         ResetAllStars();
