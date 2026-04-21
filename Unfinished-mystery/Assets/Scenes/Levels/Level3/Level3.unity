@@ -18723,6 +18723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ch33_nonPBR@Idle
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b6f6783f0d9c6425980df393c3bab1d2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fbfcffec20a884feb97f624858202dee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -18786,6 +18790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: -9.8
+  rotationSpeed: 10
 --- !u!1001 &1217654203
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25209,13 +25214,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675686398}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 6, z: -8}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 3, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1217302275}
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!114 &1675686402
 MonoBehaviour:
   m_ObjectHideFlags: 0
