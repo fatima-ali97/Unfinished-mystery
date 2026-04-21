@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private Animator animator;
+    private Transform cam;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        cam = Camera.main.transform;
     }
 
     void Update()
@@ -21,19 +23,24 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector3(x, 0, z);
+        Vector3 inputDirection = new Vector3(x, 0f, z).normalized;
 
-        bool isMoving = move.magnitude > 0.1f;
-
-        if (animator != null)
+        if (inputDirection.magnitude >= 0.1f)
         {
-            animator.SetBool("isWalking", isMoving);
+            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float smoothAngle = Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+
+            if (animator != null)
+                animator.SetBool("isWalking", true);
         }
-
-        if (isMoving)
+        else
         {
-            transform.forward = Vector3.Slerp(transform.forward, move.normalized, rotationSpeed * Time.deltaTime);
-            controller.Move(move.normalized * speed * Time.deltaTime);
+            if (animator != null)
+                animator.SetBool("isWalking", false);
         }
 
         if (controller.isGrounded && velocity.y < 0)

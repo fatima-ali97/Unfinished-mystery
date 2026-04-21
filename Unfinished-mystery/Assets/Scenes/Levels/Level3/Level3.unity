@@ -6521,6 +6521,7 @@ GameObject:
   - component: {fileID: 528832036}
   - component: {fileID: 528832038}
   - component: {fileID: 528832037}
+  - component: {fileID: 528832039}
   m_Layer: 0
   m_Name: Door_Frame
   m_TagString: Untagged
@@ -6595,6 +6596,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528832035}
+  m_Mesh: {fileID: 9023796950703523539, guid: ac161ff8aa030f14790645728846eea2, type: 3}
+--- !u!64 &528832039
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528832035}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 9023796950703523539, guid: ac161ff8aa030f14790645728846eea2, type: 3}
 --- !u!1001 &529928294
 PrefabInstance:
@@ -15278,6 +15301,7 @@ GameObject:
   - component: {fileID: 1016968085}
   - component: {fileID: 1016968087}
   - component: {fileID: 1016968086}
+  - component: {fileID: 1016968088}
   m_Layer: 0
   m_Name: Theater_Wall
   m_TagString: Untagged
@@ -15352,6 +15376,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016968084}
+  m_Mesh: {fileID: 6046951840939005905, guid: ac161ff8aa030f14790645728846eea2, type: 3}
+--- !u!64 &1016968088
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016968084}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 6046951840939005905, guid: ac161ff8aa030f14790645728846eea2, type: 3}
 --- !u!1001 &1017077548
 PrefabInstance:
@@ -18790,7 +18836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: -9.8
-  rotationSpeed: 10
+  rotationSpeed: 2
 --- !u!1001 &1217654203
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25140,6 +25186,7 @@ GameObject:
   - component: {fileID: 1675686400}
   - component: {fileID: 1675686399}
   - component: {fileID: 1675686402}
+  - component: {fileID: 1675686403}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -25265,6 +25312,21 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1675686403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675686398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d084f9445212b47a597dc9a3dc412dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1217302275}
+  offset: {x: 0, y: 4, z: -6}
+  followSpeed: 2
 --- !u!1 &1677513798
 GameObject:
   m_ObjectHideFlags: 8
@@ -29906,6 +29968,7 @@ GameObject:
   - component: {fileID: 2030008767}
   - component: {fileID: 2030008769}
   - component: {fileID: 2030008768}
+  - component: {fileID: 2030008770}
   m_Layer: 0
   m_Name: Theater_FrontWall
   m_TagString: Untagged
@@ -29980,6 +30043,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030008766}
+  m_Mesh: {fileID: -2821535488205711083, guid: ac161ff8aa030f14790645728846eea2, type: 3}
+--- !u!64 &2030008770
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030008766}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: -2821535488205711083, guid: ac161ff8aa030f14790645728846eea2, type: 3}
 --- !u!1001 &2030841960
 PrefabInstance:
