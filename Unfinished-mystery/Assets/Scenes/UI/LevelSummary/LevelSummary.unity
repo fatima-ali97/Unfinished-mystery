@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 882768152}
   - component: {fileID: 882768151}
   - component: {fileID: 882768150}
+  - component: {fileID: 882768153}
   m_Layer: 5
   m_Name: ReplayButton
   m_TagString: Untagged
@@ -1115,6 +1116,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882768148}
   m_CullTransparentMesh: 1
+--- !u!114 &882768153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882768148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd5377adbb804be5ad28c2e4dc67b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor: {r: 0, g: 0, b: 0, a: 1}
+  hoverColor: {r: 0.2901961, g: 0.25882354, b: 0.23921569, a: 1}
+  clickColor: {r: 0.43137255, g: 0.37254903, b: 0.33333334, a: 1}
 --- !u!1 &885424915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,6 +1181,7 @@ GameObject:
   - component: {fileID: 959257625}
   - component: {fileID: 959257624}
   - component: {fileID: 959257623}
+  - component: {fileID: 959257626}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -1274,6 +1291,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959257621}
   m_CullTransparentMesh: 1
+--- !u!114 &959257626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959257621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd5377adbb804be5ad28c2e4dc67b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor: {r: 0, g: 0, b: 0, a: 1}
+  hoverColor: {r: 0.2901961, g: 0.25882354, b: 0.23921569, a: 1}
+  clickColor: {r: 0.43137255, g: 0.37254903, b: 0.33333334, a: 1}
 --- !u!1 &1131233311
 GameObject:
   m_ObjectHideFlags: 0
