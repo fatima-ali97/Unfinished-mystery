@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 6686074129035949486}
   - component: {fileID: -5307975341168106497}
   - component: {fileID: 2720073302606184264}
+  - component: {fileID: -7744164946657926942}
   m_Layer: 5
   m_Name: LevelRow
   m_TagString: Untagged
@@ -340,11 +341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleText: {fileID: 4121766153988554489}
-  loopsText: {fileID: 0}
   enterButton: {fileID: 1072856695792492825}
-  selectionBorder: {fileID: 310551594742810595}
-  lockedIndicator: {fileID: 0}
   enterButtonGroup: {fileID: 6552795286407839720}
+  selectionBorder: {fileID: 310551594742810595}
   data: {fileID: 0}
   index: 0
 --- !u!114 &2720073302606184264
@@ -367,6 +366,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &-7744164946657926942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831860222672092460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2287820fb030640208f1e197777562ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  hoverSound: {fileID: 8300000, guid: 3295bab96d9ce40d8a188c28b8facd10, type: 3}
+  clickSound: {fileID: 8300000, guid: 1384f5ab11d7a4bd7bdbbe09534d5805, type: 3}
 --- !u!1 &6552795286407839720
 GameObject:
   m_ObjectHideFlags: 0
