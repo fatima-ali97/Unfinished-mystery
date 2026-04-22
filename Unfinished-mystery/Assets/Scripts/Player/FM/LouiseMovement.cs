@@ -6,15 +6,41 @@ public class LouiseMovement : MonoBehaviour
     public float runSpeed = 4f;
     public float rotationSpeed = 150f;
 
+    private CharacterController controller;
+    private float gravity = -9.81f;
+    private float verticalVelocity;
+
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
     void Update()
     {
-        float move = Input.GetAxis("Vertical");
-        float turn = Input.GetAxis("Horizontal");
+        float move = Input.GetAxisRaw("Vertical");
+        float turn = Input.GetAxisRaw("Horizontal");
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        transform.Rotate(0f, turn * rotationSpeed * Time.deltaTime, 0f);
-        transform.Translate(0f, 0f, move * currentSpeed * Time.deltaTime);
+        // Rotate player
+        if (Mathf.Abs(turn) > 0.01f)
+        {
+            transform.Rotate(0f, turn * rotationSpeed * Time.deltaTime, 0f);
+        }
+
+        // Forward/backward movement
+        Vector3 moveDirection = transform.forward * move * currentSpeed;
+
+        // Gravity
+        if (controller.isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -2f;
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+        moveDirection.y = verticalVelocity;
+
+        controller.Move(moveDirection * Time.deltaTime);
     }
 }

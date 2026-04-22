@@ -13,10 +13,10 @@ public class LouiseAnimationController : MonoBehaviour
     {
         float speed = 0f;
 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
 
-        bool isMoving = moveX != 0 || moveZ != 0;
+        bool isMoving = Mathf.Abs(moveX) > 0.01f || Mathf.Abs(moveZ) > 0.01f;
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
 
         if (isMoving)
