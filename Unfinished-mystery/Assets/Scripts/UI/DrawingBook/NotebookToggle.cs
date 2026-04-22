@@ -6,20 +6,20 @@ public class NotebookToggle : MonoBehaviour
 
     public void ToggleNotebook()
     {
-        // This flips the state:
-        bool isActive = notebookPanel.activeSelf;
-        notebookPanel.SetActive(!isActive);
+        bool isActive = !notebookPanel.activeSelf;
+        notebookPanel.SetActive(isActive);
 
-        // Optional locks/unlocks the players mouse cursor
-        if (!isActive)
+        if (isActive)
         {
-            Cursor.lockState = CursorLockMode.None;
+            // When the book is OPEN
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            // When the book is CLOSED (Change this based on your player controller)
+            Cursor.visible = false; // Set to 'true' if you want a permanent cursor
+            Cursor.lockState = CursorLockMode.Locked; // Locks mouse for 3D camera control
         }
     }
 }
