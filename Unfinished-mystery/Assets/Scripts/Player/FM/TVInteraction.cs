@@ -3,41 +3,32 @@ using UnityEngine;
 public class TVInteraction : MonoBehaviour
 {
     public GameObject tvMessage;
-    private bool playerNear = false;
-    private bool messageOpen = false;
 
-    void Start()
+    private void Awake()
     {
         if (tvMessage != null)
             tvMessage.SetActive(false);
     }
 
-    void Update()
-    {
-        if (playerNear && Input.GetKeyDown(KeyCode.E))
-        {
-            messageOpen = !messageOpen;
-
-            if (tvMessage != null)
-                tvMessage.SetActive(messageOpen);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Something entered: " + other.name);
+
         if (other.CompareTag("Player"))
         {
-            playerNear = true;
+            Debug.Log("PLAYER ENTERED TV");
+            if (tvMessage != null)
+                tvMessage.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("Something exited: " + other.name);
+
         if (other.CompareTag("Player"))
         {
-            playerNear = false;
-            messageOpen = false;
-
+            Debug.Log("PLAYER EXITED TV");
             if (tvMessage != null)
                 tvMessage.SetActive(false);
         }
