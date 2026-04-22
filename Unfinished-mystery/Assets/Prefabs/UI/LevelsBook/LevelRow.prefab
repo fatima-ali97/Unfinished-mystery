@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 7960010384268376560}
   - component: {fileID: 252072114045535198}
   - component: {fileID: 6686074129035949486}
+  - component: {fileID: -5307975341168106497}
   m_Layer: 5
   m_Name: LevelRow
   m_TagString: Untagged
@@ -325,6 +326,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-5307975341168106497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831860222672092460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e150cdbba50b1bf4999259c5f50320b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 4121766153988554489}
+  loopsText: {fileID: 0}
+  enterButton: {fileID: 1072856695792492825}
+  selectionBorder: {fileID: 310551594742810595}
+  lockedIndicator: {fileID: 0}
+  enterButtonGroup: {fileID: 6552795286407839720}
+  data: {fileID: 0}
+  index: 0
 --- !u!1 &6552795286407839720
 GameObject:
   m_ObjectHideFlags: 0

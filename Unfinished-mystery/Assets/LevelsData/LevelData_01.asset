@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7ab98c1c2ce164eb6efebb800fc983, type: 3}
   m_Name: LevelData_01
   m_EditorClassIdentifier: 
-  levelNumber: 0
-  levelTitle: 
-  identityName: 
+  levelNumber: 1
+  levelTitle: Mathematical Conflict
+  identityName: Professor
   description: 
   loopsRemaining: 0
   isLocked: 0

@@ -885,6 +885,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875996476}
   m_CullTransparentMesh: 1
+--- !u!1 &1215411977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1215411978}
+  - component: {fileID: 1215411979}
+  m_Layer: 0
+  m_Name: LevelsMenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1215411978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215411977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1215411979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215411977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1c04d8eeadcb541b9105f490ba17bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 9425c13b930c25f499cef601bc59881e, type: 2}
+  - {fileID: 11400000, guid: c19af0f1653fb2144a4035d1e001f44e, type: 2}
+  - {fileID: 11400000, guid: b7a0913da7de9cc4a932c7e3ab67bce9, type: 2}
+  - {fileID: 11400000, guid: fde97236d5d56454cba7fa173b9f43cf, type: 2}
+  - {fileID: 11400000, guid: 145b9972edb409d41b65ace9e599556a, type: 2}
+  levelListContent: {fileID: 0}
+  levelRowPrefab: {fileID: 0}
+  detailPanel: {fileID: 0}
 --- !u!1 &1346239144
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1445942293}
+  - component: {fileID: 1445942294}
   m_Layer: 5
   m_Name: RightPanel
   m_TagString: Untagged
@@ -957,6 +1011,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1445942294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445942292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b32746d1823d64a9314cd6caa3cbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelNumberText: {fileID: 0}
+  identityText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!1 &1615387192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,3 +1567,4 @@ SceneRoots:
   - {fileID: 1700416358}
   - {fileID: 2065763485}
   - {fileID: 175533808}
+  - {fileID: 1215411978}
