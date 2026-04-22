@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 4
   levelTitle: Hidden Archives
-  identityName: The
-  description: 
+  identityName: Photographer
+  description: "Omar accessed the archive without permission. He wasn\u2019t photographing
+    people, he was documenting pages. Every image shows something incomplete....Missing
+    pages and broken records."
   loopsRemaining: 0
   isLocked: 0

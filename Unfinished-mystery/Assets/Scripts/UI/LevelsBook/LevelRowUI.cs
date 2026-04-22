@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class LevelRowUI : MonoBehaviour
+public class LevelRowUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("References")]
     public TextMeshProUGUI titleText;
@@ -42,6 +43,23 @@ public class LevelRowUI : MonoBehaviour
         CanvasGroup cg = GetComponent<CanvasGroup>();
         if (cg != null)
             cg.alpha = locked ? 0.5f : 1f;
+    }
+
+    // --- Hover Events ---
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        manager.OnRowHovered(index);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        manager.OnRowUnhovered(index);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        manager.OnRowClicked(index);
     }
 
     void OnEnterClicked()

@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 5
   levelTitle: 'Project Chimera '
-  identityName: The Doctor
-  description: 
+  identityName: Doctor
+  description: 'Project Chimera was fast-tracked for global distribution and won
+    you prestigious awards. But three nights ago, your key research assistant, Elena,
+    sent you a frantic message: "The samples aren''t what they seem." She hasn''t
+    been seen since. You are the last person she trusted.'
   loopsRemaining: 0
   isLocked: 0

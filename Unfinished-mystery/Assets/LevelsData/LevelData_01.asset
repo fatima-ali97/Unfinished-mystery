@@ -15,6 +15,8 @@ MonoBehaviour:
   levelNumber: 1
   levelTitle: Mathematical Conflicts
   identityName: Professor
-  description: 
+  description: Three days ago, your most gifted student Lynnette vanished without
+    a trace. The university says she dropped out. You know that's not true you were
+    the last person to see her.
   loopsRemaining: 0
   isLocked: 0

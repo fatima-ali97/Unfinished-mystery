@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 3
   levelTitle: Flashing Lights
-  identityName: The Projectionist
-  description: 
+  identityName: Projectionist
+  description: Maya wakes up in an old, dimly-lit cinema. The screen flickers, but
+    nothing is playing. Dusty film reels and scattered notes lie around. Torn posters
+    on the walls hint at past events.
   loopsRemaining: 0
   isLocked: 0

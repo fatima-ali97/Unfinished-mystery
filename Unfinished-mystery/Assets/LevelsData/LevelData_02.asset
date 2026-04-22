@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 2
   levelTitle: Missing Trails
-  identityName: The Doctor
-  description: 
+  identityName: Detective
+  description: 'Abandoned Apartment, Unit 4B, Crescent Building Dark Secret: Lana
+    identified the kidnapper as the Police Chief. She documented it but chose to
+    hide the truth instead of exposing it.'
   loopsRemaining: 0
   isLocked: 0
