@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 3
   levelTitle: Flashing Lights
-  identityName: 
+  identityName: The Projectionist
   description: 
   loopsRemaining: 0
   isLocked: 0

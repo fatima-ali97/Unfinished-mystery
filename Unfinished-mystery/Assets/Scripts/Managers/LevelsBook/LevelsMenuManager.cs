@@ -16,6 +16,7 @@ public class LevelsMenuManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log($"Levels array has {levels.Length} entries");
         SpawnRows();
         // Auto-select first unlocked level
         for (int i = 0; i < levels.Length; i++)

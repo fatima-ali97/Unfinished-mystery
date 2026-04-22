@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 2
   levelTitle: Missing Trails
-  identityName: 
+  identityName: The Doctor
   description: 
   loopsRemaining: 0
   isLocked: 0

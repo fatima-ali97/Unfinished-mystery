@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelData_01
   m_EditorClassIdentifier: 
   levelNumber: 1
-  levelTitle: Mathematical Conflict
+  levelTitle: Mathematical Conflicts
   identityName: Professor
   description: 
   loopsRemaining: 0
