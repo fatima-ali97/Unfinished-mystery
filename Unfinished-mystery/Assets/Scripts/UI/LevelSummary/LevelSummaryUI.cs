@@ -30,9 +30,16 @@ public class LevelSummaryUI : MonoBehaviour
     {
         ApplyDefaultIfNeeded();
 
-        Sprite portraitToUse = LevelResultData.portrait != null
-            ? LevelResultData.portrait
-            : defaultPortrait;
+        Sprite portraitToUse;
+
+        if (LevelResultData.portrait != null)
+        {
+            portraitToUse = LevelResultData.portrait;
+        }
+        else
+        {
+            portraitToUse = Resources.Load<Sprite>("professor");
+        }
 
         ShowSummary(
             LevelResultData.title,
@@ -97,10 +104,20 @@ public class LevelSummaryUI : MonoBehaviour
             resultText.text = resultMessage;
 
         if (portraitImage != null)
-            portraitImage.sprite = portrait;
+        {
+            Sprite finalPortrait = portrait != null ? portrait : defaultPortrait;
+
+            portraitImage.sprite = finalPortrait;
+            portraitImage.overrideSprite = finalPortrait;
+            portraitImage.color = Color.white;
+            portraitImage.enabled = true;
+            portraitImage.preserveAspect = true;
+        }
 
         ResetAllStars();
-        StartCoroutine(PlayStarsRoutine(GetStarCount(loopsUsed)));
+
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(PlayStarsRoutine(GetStarCount(loopsUsed)));
     }
 
     private int GetStarCount(int loopsUsed)

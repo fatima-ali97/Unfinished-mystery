@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e5b6e261ec7d4d98a16f0942ed3e28e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3275ec5dfa480449db9744bb4aff00a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -748,6 +748,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 579240860}
+  - component: {fileID: 579240861}
   m_Layer: 5
   m_Name: LevelSummaryPanel
   m_TagString: Untagged
@@ -780,6 +781,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1400, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &579240861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579240859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3222baed9bc9d4cda921ceaf0d27ca58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summaryPanel: {fileID: 579240859}
+  titleText: {fileID: 192153334}
+  levelText: {fileID: 673878088}
+  identityText: {fileID: 796344111}
+  roleText: {fileID: 1383855393}
+  loopsText: {fileID: 190789816}
+  resultText: {fileID: 1131233313}
+  portraitImage: {fileID: 457039678}
+  defaultPortrait: {fileID: 21300000, guid: 843e7355fd7304da4bf9e82d8cd219ba, type: 3}
+  star1: {fileID: 2040771546}
+  star2: {fileID: 1139432215}
+  star3: {fileID: 1794711945}
+  delayBetweenStars: 0.2
 --- !u!1 &673878086
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +818,7 @@ GameObject:
   - component: {fileID: 673878089}
   - component: {fileID: 673878088}
   m_Layer: 5
-  m_Name: TitleText (1)
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1265,16 +1291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653199b7e999b4d78ae601ab715492ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonImage: {fileID: 882768151}
-  buttonText: {fileID: 1246549675}
-  buttonRect: {fileID: 882768149}
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  pressedColor: {r: 0, g: 0, b: 0, a: 0}
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  normalScale: {x: 1, y: 1, z: 1}
-  hoverScale: {x: 1.04, y: 1.04, z: 1}
-  pressedScale: {x: 0.98, y: 0.98, z: 1}
 --- !u!1 &885424915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,7 +1341,6 @@ GameObject:
   - component: {fileID: 959257625}
   - component: {fileID: 959257624}
   - component: {fileID: 959257623}
-  - component: {fileID: 959257626}
   - component: {fileID: 959257627}
   m_Layer: 5
   m_Name: ContinueButton
@@ -1436,21 +1451,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959257621}
   m_CullTransparentMesh: 1
---- !u!114 &959257626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959257621}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfd5377adbb804be5ad28c2e4dc67b6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
-  hoverColor: {r: 0.2901961, g: 0.25882354, b: 0.23921569, a: 1}
-  clickColor: {r: 0.43137255, g: 0.37254903, b: 0.33333334, a: 1}
 --- !u!114 &959257627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,16 +1463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653199b7e999b4d78ae601ab715492ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonImage: {fileID: 959257624}
-  buttonText: {fileID: 1290185684}
-  buttonRect: {fileID: 959257622}
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  pressedColor: {r: 0, g: 0, b: 0, a: 0}
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  normalScale: {x: 1, y: 1, z: 1}
-  hoverScale: {x: 1.04, y: 1.04, z: 1}
-  pressedScale: {x: 0.98, y: 0.98, z: 1}
 --- !u!1 &1131233311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,7 +2622,7 @@ SpriteRenderer:
   m_Size: {x: 15.36, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2040771542
