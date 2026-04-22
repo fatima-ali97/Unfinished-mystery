@@ -38,7 +38,16 @@ public class LouiseMovement : MonoBehaviour
             verticalVelocity = -2f;
         }
 
-        verticalVelocity += gravity * Time.deltaTime;
+        if (controller.isGrounded)
+        {
+            if (verticalVelocity < 0)
+                verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
         moveDirection.y = verticalVelocity;
 
         controller.Move(moveDirection * Time.deltaTime);
