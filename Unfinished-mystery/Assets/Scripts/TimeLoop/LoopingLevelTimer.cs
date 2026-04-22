@@ -2,16 +2,16 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class LoopingLevelTimer : MonoBehaviour
 {
     public float loopDuration = 300f;
     public int maxLoops = 10;
 
-    public TextMeshProUGUI timerText;
+    public TMP_Text timerText;
     public CanvasGroup redPulseOverlay;
 
+    public GameObject loopEndedPanel;
     public CanvasGroup loopEndedCanvasGroup;
     public TMP_Text loopEndedTitle;
     public TMP_Text loopEndedMessage;
@@ -19,71 +19,76 @@ public class LoopingLevelTimer : MonoBehaviour
     public GameObject gameOverPanel;
     public Button exitButton;
 
-    public float shakeAmount = 5f;
+    public float pulseMaxAlpha = 0.3f;
+    public float pulseFadeInDuration = 0.35f;
+    public float pulseFadeOutDuration = 0.45f;
+    public float pulsePauseDuration = 0.35f;
 
-    public float pulseMaxAlpha = 0.25f;
-    public float pulseSpeed = 0.6f;
+    public float loopFadeIn = 1.5f;
+    public float loopStay = 4f;
+    public float loopFadeOut = 1.5f;
 
-    public float loopFadeIn = 2f;
-    public float loopStay = 6f;
-    public float loopFadeOut = 2f;
+    public float shakeStrength = 5f;
 
     float timeLeft;
     int currentLoop = 0;
 
-    Vector3 originalTimerPos;
     bool hasShaken = false;
-    bool isPaused = false;
+    bool isBusy = false;
 
     Coroutine pulseRoutine;
+    Vector3 originalPos;
 
     void Start()
     {
         timeLeft = loopDuration;
-        originalTimerPos = timerText.rectTransform.localPosition;
+        originalPos = timerText.transform.localPosition;
 
-        redPulseOverlay.alpha = 0f;
-        loopEndedCanvasGroup.alpha = 0f;
+        if (redPulseOverlay != null)
+            redPulseOverlay.alpha = 0f;
+
+        if (loopEndedCanvasGroup != null)
+            loopEndedCanvasGroup.alpha = 0f;
+
+        if (loopEndedPanel != null)
+            loopEndedPanel.SetActive(false);
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
-        exitButton.onClick.AddListener(ExitGame);
-
-        UpdateTimerUI();
+        if (exitButton != null)
+            exitButton.onClick.AddListener(ExitGame);
     }
 
     void Update()
     {
-        if (isPaused)
+        if (isBusy)
             return;
 
         timeLeft -= Time.deltaTime;
 
-        if (timeLeft <= 0f)
-        {
-            currentLoop++;
-            hasShaken = false;
-
-            if (currentLoop >= maxLoops)
-            {
-                ShowGameOver();
-                return;
-            }
-
-            StartCoroutine(LoopSequence());
-            return;
-        }
+        if (timeLeft < 0f)
+            timeLeft = 0f;
 
         UpdateTimerUI();
         HandleEffects();
+
+        if (timeLeft <= 0f)
+        {
+            currentLoop++;
+
+            if (currentLoop >= maxLoops)
+                StartCoroutine(ShowGameOver());
+            else
+                StartCoroutine(ShowLoopEnded());
+        }
     }
 
     void UpdateTimerUI()
     {
-        int m = Mathf.FloorToInt(timeLeft / 60f);
-        int s = Mathf.FloorToInt(timeLeft % 60f);
-        timerText.text = $"{m}:{s:00}";
+        int minutes = Mathf.FloorToInt(timeLeft / 60f);
+        int seconds = Mathf.FloorToInt(timeLeft % 60f);
+        timerText.text = minutes + ":" + seconds.ToString("00");
     }
 
     void HandleEffects()
@@ -103,10 +108,10 @@ public class LoopingLevelTimer : MonoBehaviour
             timerText.color = Color.white;
         }
 
-        if (timeLeft <= 10f)
+        if (timeLeft <= 10f && timeLeft > 0f)
         {
             if (pulseRoutine == null)
-                pulseRoutine = StartCoroutine(Pulse());
+                pulseRoutine = StartCoroutine(PulseWarning());
         }
         else
         {
@@ -116,27 +121,46 @@ public class LoopingLevelTimer : MonoBehaviour
 
     IEnumerator ShakeOnce()
     {
-        float t = 0f;
+        float elapsed = 0f;
+        float duration = 1f;
 
-        while (t < 1f)
+        while (elapsed < duration)
         {
-            t += Time.deltaTime;
-            Vector2 offset = Random.insideUnitCircle * shakeAmount;
-            timerText.rectTransform.localPosition = originalTimerPos + new Vector3(offset.x, offset.y, 0);
+            elapsed += Time.deltaTime;
+            float x = Random.Range(-shakeStrength, shakeStrength);
+            float y = Random.Range(-shakeStrength, shakeStrength);
+            timerText.transform.localPosition = originalPos + new Vector3(x, y, 0f);
             yield return null;
         }
 
-        timerText.rectTransform.localPosition = originalTimerPos;
+        timerText.transform.localPosition = originalPos;
     }
 
-    IEnumerator Pulse()
+    IEnumerator PulseWarning()
     {
+        redPulseOverlay.alpha = 0f;
+
         while (true)
         {
-            float a = (Mathf.Sin(Time.time * pulseSpeed * Mathf.PI * 2f) + 1f) * 0.5f;
-            redPulseOverlay.alpha = Mathf.Lerp(0f, pulseMaxAlpha, a);
+            yield return StartCoroutine(FadeOverlay(0f, pulseMaxAlpha, pulseFadeInDuration));
+            yield return StartCoroutine(FadeOverlay(pulseMaxAlpha, 0f, pulseFadeOutDuration));
+            yield return new WaitForSeconds(pulsePauseDuration);
+        }
+    }
+
+    IEnumerator FadeOverlay(float from, float to, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            redPulseOverlay.alpha = Mathf.Lerp(from, to, t);
             yield return null;
         }
+
+        redPulseOverlay.alpha = to;
     }
 
     void StopPulse()
@@ -147,15 +171,17 @@ public class LoopingLevelTimer : MonoBehaviour
             pulseRoutine = null;
         }
 
-        redPulseOverlay.alpha = 0f;
+        if (redPulseOverlay != null)
+            redPulseOverlay.alpha = 0f;
     }
 
-    IEnumerator LoopSequence()
+    IEnumerator ShowLoopEnded()
     {
-        isPaused = true;
+        isBusy = true;
         StopPulse();
 
-        timerText.rectTransform.localPosition = originalTimerPos;
+        if (loopEndedPanel != null)
+            loopEndedPanel.SetActive(true);
 
         float t = 0f;
 
@@ -181,18 +207,43 @@ public class LoopingLevelTimer : MonoBehaviour
 
         loopEndedCanvasGroup.alpha = 0f;
 
-        timeLeft = loopDuration;
-        isPaused = false;
+        if (loopEndedPanel != null)
+            loopEndedPanel.SetActive(false);
+
+        ResetLoop();
+        isBusy = false;
     }
 
-    void ShowGameOver()
+    IEnumerator ShowGameOver()
     {
+        isBusy = true;
         StopPulse();
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
-        enabled = false;
+        CanvasGroup cg = gameOverPanel.GetComponent<CanvasGroup>();
+
+        if (cg != null)
+        {
+            cg.alpha = 0f;
+            float t = 0f;
+
+            while (t < 2f)
+            {
+                t += Time.deltaTime;
+                cg.alpha = Mathf.Lerp(0f, 1f, t / 2f);
+                yield return null;
+            }
+
+            cg.alpha = 1f;
+        }
+    }
+
+    void ResetLoop()
+    {
+        timeLeft = loopDuration;
+        hasShaken = false;
     }
 
     void ExitGame()
