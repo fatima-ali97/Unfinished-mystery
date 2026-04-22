@@ -13,7 +13,7 @@ public class LevelSummaryButtons : MonoBehaviour
         }
         else
         {
-            Debug.Log("No next scene set.");
+            Debug.LogWarning("No next scene set.");
         }
     }
 
@@ -27,7 +27,7 @@ public class LevelSummaryButtons : MonoBehaviour
         }
         else
         {
-            Debug.Log("No replay scene set.");
+            Debug.LogWarning("No replay scene set.");
         }
     }
 }
