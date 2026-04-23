@@ -18,10 +18,12 @@ public class TVInteraction : MonoBehaviour
 
     [Header("Timing")]
     public float staticDuration = 1f;
+    public float messageDuration = 3f;
     public bool playOnlyOncePerLoop = true;
 
     private bool hasPlayed = false;
     private bool isPlaying = false;
+    private Coroutine currentSequence;
 
     void Start()
     {
@@ -46,7 +48,7 @@ public class TVInteraction : MonoBehaviour
         if (playOnlyOncePerLoop && hasPlayed)
             return;
 
-        StartCoroutine(TVSequence());
+        currentSequence = StartCoroutine(TVSequence());
     }
 
     private IEnumerator TVSequence()
@@ -56,6 +58,9 @@ public class TVInteraction : MonoBehaviour
 
         if (tvMessage != null)
             tvMessage.SetActive(false);
+
+        if (messageText != null)
+            messageText.text = "";
 
         if (tvStatic != null)
             tvStatic.SetActive(true);
@@ -77,7 +82,16 @@ public class TVInteraction : MonoBehaviour
         if (messageText != null)
             messageText.text = message;
 
+        yield return new WaitForSeconds(messageDuration);
+
+        if (tvMessage != null)
+            tvMessage.SetActive(false);
+
+        if (messageText != null)
+            messageText.text = "";
+
         isPlaying = false;
+        currentSequence = null;
     }
 
     private void OnTriggerExit(Collider other)
@@ -85,10 +99,24 @@ public class TVInteraction : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
+        if (currentSequence != null)
+        {
+            StopCoroutine(currentSequence);
+            currentSequence = null;
+        }
+
         if (tvStatic != null)
             tvStatic.SetActive(false);
 
+        if (tvMessage != null)
+            tvMessage.SetActive(false);
+
+        if (messageText != null)
+            messageText.text = "";
+
         if (staticSound != null)
             staticSound.Stop();
+
+        isPlaying = false;
     }
 }
