@@ -13,10 +13,8 @@ public class LouiseAnimationController : MonoBehaviour
     {
         float speed = 0f;
 
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        bool isMoving = Mathf.Abs(moveX) > 0.01f || Mathf.Abs(moveZ) > 0.01f;
+        float move = Input.GetAxisRaw("Vertical");
+        bool isMoving = Mathf.Abs(move) > 0.01f;
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
 
         if (isMoving)
@@ -26,5 +24,7 @@ public class LouiseAnimationController : MonoBehaviour
             speed = 2f;
 
         animator.SetFloat("Speed", speed);
+
+        Debug.Log("Speed = " + speed);
     }
 }
