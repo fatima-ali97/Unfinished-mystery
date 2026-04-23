@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/UI/LevelSummary/LevelSummary.unity
     guid: dba2c2ce88632448bae067350b8d4de0
   - enabled: 1
-    path: Assets/Scenes/UI/GameSummary/GameSumary.unity
+    path: Assets/Scenes/UI/GameSummary/GameSummary.unity
     guid: f5831fd4879a8421fb1575e633258d10
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
