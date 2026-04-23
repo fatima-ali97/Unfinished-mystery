@@ -28,24 +28,18 @@ public class LevelSummaryUI : MonoBehaviour
 
     private void Start()
     {
-        if (string.IsNullOrEmpty(LevelResultData.title))
-        {
-            LevelResultData.SetResult(
-                "LEVEL COMPLETE",
-                "Level 1",
-                "Unknown Character",
-                "Unknown Role",
-                5,
-                "No data yet.",
-                defaultPortrait,
-                "",
-                ""
-            );
-        }
+        ApplyDefaultIfNeeded();
 
-        Sprite portraitToUse = LevelResultData.portrait != null
-            ? LevelResultData.portrait
-            : defaultPortrait;
+        Sprite portraitToUse;
+
+        if (LevelResultData.portrait != null)
+        {
+            portraitToUse = LevelResultData.portrait;
+        }
+        else
+        {
+            portraitToUse = Resources.Load<Sprite>("professor");
+        }
 
         ShowSummary(
             LevelResultData.title,
@@ -56,6 +50,27 @@ public class LevelSummaryUI : MonoBehaviour
             LevelResultData.resultMessage,
             portraitToUse
         );
+    }
+
+    private void ApplyDefaultIfNeeded()
+    {
+        if (string.IsNullOrEmpty(LevelResultData.title))
+            LevelResultData.title = "LEVEL COMPLETE";
+
+        if (string.IsNullOrEmpty(LevelResultData.levelName))
+            LevelResultData.levelName = "Level 1";
+
+        if (string.IsNullOrEmpty(LevelResultData.characterName))
+            LevelResultData.characterName = "Kyryll Flins";
+
+        if (string.IsNullOrEmpty(LevelResultData.role))
+            LevelResultData.role = "Mathematics Professor";
+
+        if (LevelResultData.loopsUsed <= 0)
+            LevelResultData.loopsUsed = 3;
+
+        if (string.IsNullOrEmpty(LevelResultData.resultMessage))
+            LevelResultData.resultMessage = "The truth has been uncovered.";
     }
 
     public void ShowSummary(
@@ -89,10 +104,20 @@ public class LevelSummaryUI : MonoBehaviour
             resultText.text = resultMessage;
 
         if (portraitImage != null)
-            portraitImage.sprite = portrait;
+        {
+            Sprite finalPortrait = portrait != null ? portrait : defaultPortrait;
+
+            portraitImage.sprite = finalPortrait;
+            portraitImage.overrideSprite = finalPortrait;
+            portraitImage.color = Color.white;
+            portraitImage.enabled = true;
+            portraitImage.preserveAspect = true;
+        }
 
         ResetAllStars();
-        StartCoroutine(PlayStarsRoutine(GetStarCount(loopsUsed)));
+
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(PlayStarsRoutine(GetStarCount(loopsUsed)));
     }
 
     private int GetStarCount(int loopsUsed)
