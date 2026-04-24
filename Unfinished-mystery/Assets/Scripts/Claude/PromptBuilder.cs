@@ -1,18 +1,35 @@
 public static class PromptBuilder
 {
-    public static string BuildMemoryNotePrompt(string levelName, int loopNumber, string realClue, string mood)
+    public static string BuildMemoryNotePrompt(
+        string levelName,
+        int loopNumber,
+        string realClue,
+        string mood,
+        string playerActions = ""
+    )
     {
         return
-            "Write one short mysterious memory journal note for a horror escape room game.\n" +
-            "Rules:\n" +
-            "- 1 to 3 sentences only.\n" +
-            "- Do not reveal the full solution.\n" +
-            "- Do not invent puzzle codes.\n" +
-            "- Do not mention AI.\n" +
-            "- Make it feel like a broken memory.\n\n" +
+            "You are writing a memory journal entry for a horror escape room game.\n\n" +
+
+            "RULES:\n" +
+            "- Write ONLY 1–3 short sentences.\n" +
+            "- Keep it mysterious and fragmented like broken memory.\n" +
+            "- Do NOT reveal full solutions or final answers.\n" +
+            "- Do NOT create new puzzle codes or numbers.\n" +
+            "- Do NOT mention AI, Claude, or system.\n" +
+            "- Make it feel emotional, unclear, and slightly unreliable.\n\n" +
+
+            "LEVEL CONTEXT:\n" +
             "Level: " + levelName + "\n" +
-            "Loop number: " + loopNumber + "\n" +
-            "Mood: " + mood + "\n" +
-            "Hidden real clue inspiration: " + realClue;
+            "Loop: " + loopNumber + "\n" +
+            "Mood: " + mood + "\n\n" +
+
+            "WHAT PLAYER DID:\n" +
+            playerActions + "\n\n" +
+
+            "HIDDEN TRUTH INFLUENCE (DO NOT EXPLAIN DIRECTLY):\n" +
+            realClue + "\n\n" +
+
+            "Now write the memory journal entry:";
     }
 }
