@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa875e4a45da4fe29aa8b149b015fc9, type: 3}
+  m_Name: ClaudeConfig
+  m_EditorClassIdentifier: 
+  apiKey: PASTE_YOUR_CLAUDE_API_KEY_HERE
+  apiUrl: https://api.anthropic.com/v1/messages
+  anthropicVersion: 2023-06-01
+  model: claude-3-5-haiku-latest
+  maxTokens: 120
