@@ -37,19 +37,17 @@ public class MemoryNoteSystem : MonoBehaviour
             return;
         }
 
-        string prompt =
-            "Write 1–3 short mysterious memory sentences.\n" +
-            "Level: " + levelName + "\n" +
-            "Loop: " + currentLoop + "\n" +
-            "Mood: " + mood + "\n\n" +
-            "Player actions:\n" + playerActions + "\n\n" +
-            "Hidden clue: " + realClue + "\n\n" +
-            "Do not reveal full answers.";
+        string prompt = PromptBuilder.BuildMemoryNotePrompt(
+            levelName,
+            currentLoop,
+            realClue,
+            mood,
+            playerActions
+        );
 
         ClaudeManager.Instance.GenerateNote(
             prompt,
             (note) => JournalUI.Instance.AddNote(note),
-            (err) => JournalUI.Instance.AddNote("Memory failed...")
-        );
+            (err) => JournalUI.Instance.AddNote("The memory slips away... but something still feels wrong."));
     }
 }

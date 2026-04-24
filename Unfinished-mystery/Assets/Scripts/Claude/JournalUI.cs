@@ -28,6 +28,7 @@ public class JournalUI : MonoBehaviour
     public void AddNote(string note)
     {
         notes.Add(note);
+        Refresh();
     }
 
     private void Refresh()
