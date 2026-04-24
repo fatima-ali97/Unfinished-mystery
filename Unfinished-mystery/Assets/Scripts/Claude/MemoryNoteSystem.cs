@@ -2,54 +2,54 @@ using UnityEngine;
 
 public class MemoryNoteSystem : MonoBehaviour
 {
-    [Header("Level Settings")]
-    public string levelName = "Projector Room";
-    public string mood = "scary, confusing, mysterious";
+    [Header("Level Info")]
+    public string levelName;
+    public string mood;
+    public string realClue;
 
-    [Header("Loop Settings")]
+    [Header("Loop")]
     public int currentLoop = 1;
 
-    [Header("Real Clue")]
-    [TextArea]
-    public string realClue = "The projector needs the film reel before the exit can open.";
-
-    [Header("Fallback Note")]
-    [TextArea]
-    public string fallbackNote = "I remember the projector flickering... something important was missing.";
+    private string playerActions = "";
 
     private void Start()
     {
-        GenerateMemoryNote();
+        GenerateNote();
+    }
+
+    public void AddPlayerAction(string action)
+    {
+        playerActions += "- " + action + "\n";
     }
 
     public void IncreaseLoop()
     {
         currentLoop++;
-        GenerateMemoryNote();
+        playerActions = "";
+        GenerateNote();
     }
 
-    public void GenerateMemoryNote()
+    public void GenerateNote()
     {
         if (ClaudeManager.Instance == null)
         {
-            Debug.LogWarning("ClaudeManager is missing from the scene.");
-            JournalUI.Instance.AddNote(fallbackNote);
+            JournalUI.Instance.AddNote("Memory broken...");
             return;
         }
 
-        string prompt = PromptBuilder.BuildMemoryNotePrompt(levelName, currentLoop, realClue, mood);
+        string prompt =
+            "Write 1–3 short mysterious memory sentences.\n" +
+            "Level: " + levelName + "\n" +
+            "Loop: " + currentLoop + "\n" +
+            "Mood: " + mood + "\n\n" +
+            "Player actions:\n" + playerActions + "\n\n" +
+            "Hidden clue: " + realClue + "\n\n" +
+            "Do not reveal full answers.";
 
-        ClaudeManager.Instance.GenerateNote(prompt, OnNoteGenerated, OnNoteFailed);
-    }
-
-    private void OnNoteGenerated(string note)
-    {
-        JournalUI.Instance.AddNote(note);
-    }
-
-    private void OnNoteFailed(string error)
-    {
-        Debug.LogWarning("Claude failed: " + error);
-        JournalUI.Instance.AddNote(fallbackNote);
+        ClaudeManager.Instance.GenerateNote(
+            prompt,
+            (note) => JournalUI.Instance.AddNote(note),
+            (err) => JournalUI.Instance.AddNote("Memory failed...")
+        );
     }
 }

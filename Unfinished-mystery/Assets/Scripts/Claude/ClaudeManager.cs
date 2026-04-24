@@ -29,29 +29,17 @@ public class ClaudeManager : MonoBehaviour
 
     private IEnumerator SendRequest(string prompt, Action<string> onSuccess, Action<string> onError)
     {
-        if (config == null)
-        {
-            onError?.Invoke("ClaudeConfig is missing.");
-            yield break;
-        }
-
-        if (string.IsNullOrEmpty(config.apiKey))
-        {
-            onError?.Invoke("Claude API key is missing.");
-            yield break;
-        }
-
         string jsonBody =
             "{"
-            + "\"model\":\"" + EscapeJson(config.model) + "\","
+            + "\"model\":\"" + config.model + "\","
             + "\"max_tokens\":" + config.maxTokens + ","
-            + "\"messages\":[{\"role\":\"user\",\"content\":\"" + EscapeJson(prompt) + "\"}]"
+            + "\"messages\":[{\"role\":\"user\",\"content\":\"" + Escape(prompt) + "\"}]"
             + "}";
 
         UnityWebRequest request = new UnityWebRequest(config.apiUrl, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonBody);
+        byte[] body = Encoding.UTF8.GetBytes(jsonBody);
 
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.uploadHandler = new UploadHandlerRaw(body);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         request.SetRequestHeader("Content-Type", "application/json");
@@ -62,62 +50,33 @@ public class ClaudeManager : MonoBehaviour
 
         if (request.result != UnityWebRequest.Result.Success)
         {
-            onError?.Invoke(request.error + "\n" + request.downloadHandler.text);
+            onError?.Invoke(request.error);
             yield break;
         }
 
-        string note = ExtractClaudeText(request.downloadHandler.text);
+        string response = request.downloadHandler.text;
 
-        if (string.IsNullOrEmpty(note))
-        {
-            onError?.Invoke("Could not read Claude response.");
-            yield break;
-        }
-
-        onSuccess?.Invoke(note.Trim());
-    }
-
-    private string ExtractClaudeText(string json)
-    {
+        // SIMPLE PARSE
         string marker = "\"text\":\"";
-        int start = json.IndexOf(marker, StringComparison.Ordinal);
+        int start = response.IndexOf(marker);
 
         if (start == -1)
-            return "";
-
-        start += marker.Length;
-
-        int end = json.IndexOf("\"", start, StringComparison.Ordinal);
-
-        while (end > 0 && json[end - 1] == '\\')
         {
-            end = json.IndexOf("\"", end + 1, StringComparison.Ordinal);
+            onError?.Invoke("Parse error");
+            yield break;
         }
 
-        if (end == -1)
-            return "";
+        start += marker.Length;
+        int end = response.IndexOf("\"", start);
 
-        string text = json.Substring(start, end - start);
-        return UnescapeJson(text);
+        string note = response.Substring(start, end - start);
+        note = note.Replace("\\n", "\n");
+
+        onSuccess?.Invoke(note);
     }
 
-    private string EscapeJson(string text)
+    private string Escape(string text)
     {
-        if (string.IsNullOrEmpty(text))
-            return "";
-
-        return text
-            .Replace("\\", "\\\\")
-            .Replace("\"", "\\\"")
-            .Replace("\n", "\\n")
-            .Replace("\r", "");
-    }
-
-    private string UnescapeJson(string text)
-    {
-        return text
-            .Replace("\\n", "\n")
-            .Replace("\\\"", "\"")
-            .Replace("\\\\", "\\");
+        return text.Replace("\\", "\\\\").Replace("\"", "\\\"");
     }
 }

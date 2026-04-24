@@ -6,56 +6,37 @@ public class JournalUI : MonoBehaviour
 {
     public static JournalUI Instance;
 
-    [Header("UI")]
-    public GameObject journalPanel;
-    public TMP_Text journalText;
+    public GameObject panel;
+    public TMP_Text text;
 
     private List<string> notes = new List<string>();
-    private bool isOpen = false;
 
     private void Awake()
     {
         Instance = this;
-
-        if (journalPanel != null)
-            journalPanel.SetActive(false);
+        panel.SetActive(false);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            ToggleJournal();
-        }
+            panel.SetActive(!panel.activeSelf);
+
+        Refresh();
     }
 
     public void AddNote(string note)
     {
         notes.Add(note);
-        RefreshJournal();
     }
 
-    private void ToggleJournal()
+    private void Refresh()
     {
-        isOpen = !isOpen;
-
-        if (journalPanel != null)
-            journalPanel.SetActive(isOpen);
-
-        RefreshJournal();
-    }
-
-    private void RefreshJournal()
-    {
-        if (journalText == null)
-            return;
-
-        journalText.text = "";
+        text.text = "";
 
         for (int i = 0; i < notes.Count; i++)
         {
-            journalText.text += "Memory " + (i + 1) + ":\n";
-            journalText.text += notes[i] + "\n\n";
+            text.text += "Memory " + (i + 1) + ":\n" + notes[i] + "\n\n";
         }
     }
 }
