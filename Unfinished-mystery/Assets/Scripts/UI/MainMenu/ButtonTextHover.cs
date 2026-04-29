@@ -9,15 +9,14 @@ public class ButtonTextHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] private Image bg;
 
     [Header("Text Colors")]
-    [SerializeField] private Color normalColor = new Color32(245, 240, 230, 255);
-    [SerializeField] private Color hoverColor = new Color32(255, 250, 240, 255);
-    [SerializeField] private Color clickColor = new Color32(220, 210, 190, 255);
+[SerializeField] private Color normalColor = new Color32(245, 240, 230, 255);
+[SerializeField] private Color hoverColor = new Color32(255, 250, 240, 255);
+[SerializeField] private Color clickColor = new Color32(220, 210, 190, 255);
 
-    [Header("Background Colors")]
-    [SerializeField] private Color normalBg = new Color32(60, 40, 25, 255);
-    [SerializeField] private Color hoverBg = new Color32(85, 60, 40, 255);
-    [SerializeField] private Color clickBg = new Color32(40, 25, 18, 255);
-
+[Header("Background Colors")]
+[SerializeField] private Color normalBg = new Color32(110, 80, 55, 255);
+[SerializeField] private Color hoverBg = new Color32(130, 95, 65, 255);
+[SerializeField] private Color clickBg = new Color32(90, 65, 45, 255);
     private void Awake()
     {
         if (text == null)
