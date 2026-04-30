@@ -5,27 +5,39 @@ namespace InventoryFramework
     public class PickupItem : MonoBehaviour
     {
         public Item item;
-        public int amount;
+        public int amount = 1;
 
-        void OnCollisionEnter(Collision collision)
+        private bool playerInRange = false;
+        private ItemPickupHandler pickupHandler;
+
+        private void Update()
         {
-            Debug.Log(collision.gameObject);
-
-            if (collision.gameObject.CompareTag("Player"))
+            if (playerInRange && Input.GetKeyDown(KeyCode.E))
             {
-                collision.gameObject.GetComponent<ItemPickupHandler>().PickupItem(item, amount);
-                Destroy(this.gameObject);
+                if (pickupHandler != null && item != null)
+                {
+                    pickupHandler.PickupItem(item, amount);
+                    Destroy(gameObject);
+                }
             }
         }
 
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<ItemPickupHandler>().PickupItem(item, amount);
-                Destroy(this.gameObject);
+                playerInRange = true;
+                pickupHandler = other.GetComponent<ItemPickupHandler>();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                playerInRange = false;
+                pickupHandler = null;
             }
         }
     }
 }
-
