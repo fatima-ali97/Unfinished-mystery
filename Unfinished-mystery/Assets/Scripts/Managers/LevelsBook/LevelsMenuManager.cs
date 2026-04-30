@@ -86,6 +86,6 @@ public class LevelsMenuManager : MonoBehaviour
     {
         if (levels[index].isLocked) return;
 
-        SceneManager.LoadScene($"Level_0{index + 1}_Scene");
+        SceneManager.LoadScene($"Level{index + 1}");
     }
 }
