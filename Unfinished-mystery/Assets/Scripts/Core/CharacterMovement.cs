@@ -13,7 +13,10 @@ public class CharacterMovement : MonoBehaviour
     public float jumpHeight = 1.5f;
     public float gravity = -9.81f;
     public float rotationSpeed = 10f;
-
+    
+    
+    public Transform cameraFollowTarget; // drag CameraFollow here too
+    
     [Header("Camera")] public Transform cameraTransform;
 
     private CharacterController controller;
@@ -41,6 +44,8 @@ public class CharacterMovement : MonoBehaviour
         ApplyGravity();
     }
 
+    // In LeonardController.cs — update HandleMovement()
+
     void HandleMovement()
     {
         isGrounded = controller.isGrounded;
@@ -50,21 +55,17 @@ public class CharacterMovement : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        // Move relative to camera direction
-        Vector3 camForward = cameraTransform.forward;
-        Vector3 camRight = cameraTransform.right;
-        camForward.y = 0;
-        camRight.y = 0;
-        camForward.Normalize();
-        camRight.Normalize();
+        // Use the CameraFollow target's Y rotation for direction
+        float cameraYaw = cameraFollowTarget.eulerAngles.y;
+        Quaternion cameraYawRotation = Quaternion.Euler(0, cameraYaw, 0);
 
-        Vector3 moveDir = (camForward * v + camRight * h).normalized;
+        Vector3 moveDir = cameraYawRotation * new Vector3(h, 0, v).normalized;
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         if (moveDir.magnitude >= 0.1f)
         {
-            // Rotate character to face movement direction
+            // Smoothly rotate Leonard to face movement direction
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -72,7 +73,6 @@ public class CharacterMovement : MonoBehaviour
             controller.Move(moveDir * currentSpeed * Time.deltaTime);
         }
 
-        // Update animator
         float animSpeed = moveDir.magnitude * (isRunning ? 2f : 1f);
         animator.SetFloat(speedHash, animSpeed, 0.1f, Time.deltaTime);
     }
