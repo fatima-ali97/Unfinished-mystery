@@ -1,48 +1,43 @@
 using UnityEngine;
-using InventoryFramework;
 
-public class FilmReelPickup : MonoBehaviour
+public class FilmProjectorInteraction : MonoBehaviour
 {
     public GameObject interactPrompt;
-
-    [Header("Inventory Item")]
-    public Item item;
-    public int amount = 1;
+    public GameObject screenMessage;
 
     private bool playerInRange = false;
-    private ItemPickupHandler pickupHandler;
+    private PlayerInventory playerInventory;
 
     private void Start()
     {
         if (interactPrompt != null)
             interactPrompt.SetActive(false);
+
+        if (screenMessage != null)
+            screenMessage.SetActive(false);
     }
 
     private void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("E pressed while near reel");
-
-            if (pickupHandler == null)
+            if (playerInventory == null)
             {
-                Debug.LogError("ItemPickupHandler not found on Player!");
+                Debug.LogWarning("PlayerInventory not found!");
                 return;
             }
 
-            if (item == null)
+            if (playerInventory.hasFilmReel)
             {
-                Debug.LogError("FilmReelPickup item is NOT assigned!");
-                return;
+                Debug.Log("Film reel inserted into projector!");
+
+                if (screenMessage != null)
+                    screenMessage.SetActive(true);
             }
-
-            pickupHandler.PickupItem(item, amount);
-
-            if (interactPrompt != null)
-                interactPrompt.SetActive(false);
-
-            Debug.Log("Film reel picked up and added to inventory!");
-            Destroy(gameObject);
+            else
+            {
+                Debug.Log("You need a film reel first!");
+            }
         }
     }
 
@@ -51,7 +46,7 @@ public class FilmReelPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            pickupHandler = other.GetComponent<ItemPickupHandler>();
+            playerInventory = other.GetComponent<PlayerInventory>();
 
             if (interactPrompt != null)
                 interactPrompt.SetActive(true);
@@ -63,7 +58,6 @@ public class FilmReelPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            pickupHandler = null;
 
             if (interactPrompt != null)
                 interactPrompt.SetActive(false);
