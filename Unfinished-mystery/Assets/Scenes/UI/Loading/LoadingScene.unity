@@ -1229,7 +1229,7 @@ MonoBehaviour:
   loadingText: {fileID: 1914218938}
   barFill: {fileID: 1744496692}
   barOutline: {fileID: 1894603904}
-  nextSceneName: Level1Scene
+  nextSceneName: MainMenu
   minimumLoadingTime: 2
   openDoorDelay: 1
 --- !u!4 &1984120617
