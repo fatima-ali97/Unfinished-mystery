@@ -1,98 +1,111 @@
 using UnityEngine;
-
-
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
-
 public class CharacterMovement : MonoBehaviour
 {
-
-
-    [Header("Movement")] public float walkSpeed = 2f;
-    public float runSpeed = 6f;
-    public float jumpHeight = 1.5f;
+    [Header("Movement")]
+    public float walkSpeed = 1.5f;
+    public float runSpeed = 4f;
+    public float jumpHeight = 1f;
     public float gravity = -9.81f;
     public float rotationSpeed = 10f;
-    
-    
-    public Transform cameraFollowTarget; // drag CameraFollow here too
-    
-    [Header("Camera")] public Transform cameraTransform;
+
+    [Header("Camera")]
+    public Transform cameraFollowTarget;
+
+    [Header("Ground Detection")]
+    public LayerMask groundMask;
 
     private CharacterController controller;
     private Animator animator;
-    private Vector3 velocity;
+    private float verticalVelocity;
     private bool isGrounded;
-
-    // Animator parameter hashes (performance optimization)
-    private int speedHash = Animator.StringToHash("Speed");
-    private int isJumpingHash = Animator.StringToHash("IsJumping");
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        if (cameraTransform == null)
-            cameraTransform = Camera.main.transform;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out hit, 20f, groundMask))
+        {
+            float controllerBottom = controller.center.y - (controller.height / 2f);
+            transform.position = new Vector3(
+                transform.position.x,
+                hit.point.y - controllerBottom,
+                transform.position.z
+            );
+        }
     }
 
     void Update()
     {
+        GroundCheck();
         HandleMovement();
         HandleJump();
         ApplyGravity();
     }
 
-    // In LeonardController.cs — update HandleMovement()
+    void GroundCheck()
+    {
+        // Use CharacterController's built-in isGrounded PLUS a raycast for reliability
+        float rayLength = (controller.height / 2f) + 0.15f;
+        isGrounded = controller.isGrounded ||
+                     Physics.Raycast(transform.position + controller.center, Vector3.down, rayLength, groundMask);
+    }
 
     void HandleMovement()
     {
-        isGrounded = controller.isGrounded;
-        if (isGrounded && velocity.y < 0)
-            velocity.y = -2f;
-
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        // Use the CameraFollow target's Y rotation for direction
         float cameraYaw = cameraFollowTarget.eulerAngles.y;
         Quaternion cameraYawRotation = Quaternion.Euler(0, cameraYaw, 0);
+        Vector3 moveDir = (cameraYawRotation * new Vector3(h, 0, v)).normalized;
 
-        Vector3 moveDir = cameraYawRotation * new Vector3(h, 0, v).normalized;
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         if (moveDir.magnitude >= 0.1f)
         {
-            // Smoothly rotate Leonard to face movement direction
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+                rotationSpeed * Time.deltaTime);
             controller.Move(moveDir * currentSpeed * Time.deltaTime);
         }
 
-        float animSpeed = moveDir.magnitude * (isRunning ? 2f : 1f);
-        animator.SetFloat(speedHash, animSpeed, 0.1f, Time.deltaTime);
+        // 0 = Idle, 1 = Walk, 2 = Run — matches blend tree thresholds
+        float animSpeed = moveDir.magnitude;
+        animator.SetFloat("Speed", animSpeed, 0.1f, Time.deltaTime);
     }
 
     void HandleJump()
     {
         if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.SetBool(isJumpingHash, true);
-        }
-
-        if (isGrounded && animator.GetBool(isJumpingHash))
-            animator.SetBool(isJumpingHash, false);
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
     void ApplyGravity()
     {
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        if (isGrounded && verticalVelocity < 0f)
+        {
+            // ✅ Constant small downward force keeps controller pressed to ground
+            // so controller.isGrounded stays true next frame
+            verticalVelocity = -5f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        controller.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
     }
 
+    void OnDrawGizmosSelected()
+    {
+        if (controller == null) return;
+        Gizmos.color = Color.red;
+        float rayLength = (controller.height / 2f) + 0.15f;
+        Gizmos.DrawRay(transform.position + controller.center, Vector3.down * rayLength);
+    }
 }
