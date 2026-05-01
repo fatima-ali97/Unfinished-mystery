@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoopingLevelTimer : MonoBehaviour
@@ -248,7 +249,7 @@ public class LoopingLevelTimer : MonoBehaviour
 
     void ExitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("LevelsBook");
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
