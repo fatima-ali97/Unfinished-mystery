@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 public class CharacterMovement : MonoBehaviour
@@ -20,6 +22,28 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private float verticalVelocity;
     private bool isGrounded;
+
+    private PlayerControls controls;
+    private Vector2 moveInput;
+    private bool jumpPressed;
+    private bool isRunning;
+
+    void Awake()
+    {
+        controls = new PlayerControls();
+
+        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled  += ctx => moveInput = Vector2.zero;
+
+        controls.Player.Jump.performed += ctx => jumpPressed = true;
+
+        // If you add a "Run" action (e.g. L3 or R2), wire it here:
+        // controls.Player.Run.performed += ctx => isRunning = true;
+        // controls.Player.Run.canceled  += ctx => isRunning = false;
+    }
+
+    void OnEnable()  => controls.Enable();
+    void OnDisable() => controls.Disable();
 
     void Start()
     {
@@ -44,11 +68,11 @@ public class CharacterMovement : MonoBehaviour
         HandleMovement();
         HandleJump();
         ApplyGravity();
+        jumpPressed = false; // reset after processing
     }
 
     void GroundCheck()
     {
-        // Use CharacterController's built-in isGrounded PLUS a raycast for reliability
         float rayLength = (controller.height / 2f) + 0.15f;
         isGrounded = controller.isGrounded ||
                      Physics.Raycast(transform.position + controller.center, Vector3.down, rayLength, groundMask);
@@ -56,47 +80,35 @@ public class CharacterMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-
         float cameraYaw = cameraFollowTarget.eulerAngles.y;
         Quaternion cameraYawRotation = Quaternion.Euler(0, cameraYaw, 0);
-        Vector3 moveDir = (cameraYawRotation * new Vector3(h, 0, v)).normalized;
+        Vector3 moveDir = (cameraYawRotation * new Vector3(moveInput.x, 0, moveInput.y)).normalized;
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         if (moveDir.magnitude >= 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                 rotationSpeed * Time.deltaTime);
             controller.Move(moveDir * currentSpeed * Time.deltaTime);
         }
 
-        // 0 = Idle, 1 = Walk, 2 = Run — matches blend tree thresholds
-        float animSpeed = moveDir.magnitude;
-        animator.SetFloat("Speed", animSpeed, 0.1f, Time.deltaTime);
+        animator.SetFloat("Speed", moveDir.magnitude, 0.1f, Time.deltaTime);
     }
 
     void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (jumpPressed && isGrounded)
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
     void ApplyGravity()
     {
         if (isGrounded && verticalVelocity < 0f)
-        {
-            // ✅ Constant small downward force keeps controller pressed to ground
-            // so controller.isGrounded stays true next frame
             verticalVelocity = -5f;
-        }
         else
-        {
             verticalVelocity += gravity * Time.deltaTime;
-        }
 
         controller.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
     }
