@@ -38,8 +38,8 @@ public class CharacterMovement : MonoBehaviour
         controls.Player.Jump.performed += ctx => jumpPressed = true;
 
         // If you add a "Run" action (e.g. L3 or R2), wire it here:
-        // controls.Player.Run.performed += ctx => isRunning = true;
-        // controls.Player.Run.canceled  += ctx => isRunning = false;
+        controls.Player.Run.performed += ctx => isRunning = true;
+        controls.Player.Run.canceled  += ctx => isRunning = false;
     }
 
     void OnEnable()  => controls.Enable();
@@ -50,13 +50,13 @@ public class CharacterMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out hit, 20f, groundMask))
+        // Snap to ground reliably
+        if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 20f, groundMask))
         {
-            float controllerBottom = controller.center.y - (controller.height / 2f);
+            // Account for the controller's skin width too
             transform.position = new Vector3(
                 transform.position.x,
-                hit.point.y - controllerBottom,
+                hit.point.y + controller.skinWidth,
                 transform.position.z
             );
         }
@@ -73,9 +73,11 @@ public class CharacterMovement : MonoBehaviour
 
     void GroundCheck()
     {
-        float rayLength = (controller.height / 2f) + 0.15f;
+        // Cast from feet level downward
+        Vector3 feetPos = transform.position + Vector3.up * controller.radius;
         isGrounded = controller.isGrounded ||
-                     Physics.Raycast(transform.position + controller.center, Vector3.down, rayLength, groundMask);
+                     Physics.SphereCast(feetPos, controller.radius * 0.9f, Vector3.down, 
+                         out _, 0.2f, groundMask);
     }
 
     void HandleMovement()
@@ -85,6 +87,7 @@ public class CharacterMovement : MonoBehaviour
         Vector3 moveDir = (cameraYawRotation * new Vector3(moveInput.x, 0, moveInput.y)).normalized;
 
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
+        float animSpeed = 0f;
 
         if (moveDir.magnitude >= 0.1f)
         {
@@ -92,9 +95,12 @@ public class CharacterMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                 rotationSpeed * Time.deltaTime);
             controller.Move(moveDir * currentSpeed * Time.deltaTime);
+
+            // 0.5 = walking, 1.0 = running
+            animSpeed = isRunning ? 1f : 0.5f;
         }
 
-        animator.SetFloat("Speed", moveDir.magnitude, 0.1f, Time.deltaTime);
+        animator.SetFloat("Speed", animSpeed, 0.15f, Time.deltaTime);
     }
 
     void HandleJump()
